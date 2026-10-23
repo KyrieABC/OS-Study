@@ -3,25 +3,44 @@
   - *Code run in Kernel mode have complete, unrestricted access to the underlying hardware*
   - **Kernel Space**: memory area reserved to kernel processes
 ## Typical OS architecture
-flowchart TD
-    subgraph UserSpace [User space]
+
+```mermaid
+flowchart TB
+    subgraph USER["User space"]
         direction LR
-        App1[Application 1] --> App2[Application2] --> AppDots[...] --> AppN[Application n]
+        A1["Application 1"]
+        A2["Application 2"]
+        AN["Application n"]
     end
 
-    subgraph KernelSpace [Kernel space]
-        direction TD
-        SCI[System Call Interface]
-        Kernel[Kernel]
-        Drivers[Device drivers]
-        SCI --> Kernel --> Drivers
+    subgraph KERNEL["Kernel space"]
+        direction TB
+        SCI["System Call Interface"]
+        K["Kernel"]
+        DD["Device drivers"]
     end
 
-    subgraph Hardware [Hardware]
-        HW[Hardware]
+    subgraph HW["Hardware"]
+        H["Physical hardware"]
     end
 
-    App1 --> SCI
-    App2 --> SCI
-    AppN --> SCI
-    Drivers --> HW
+    A1 --> SCI
+    A2 --> SCI
+    AN --> SCI
+
+    SCI --> K
+    K --> DD
+    DD --> H
+
+    style USER fill:#ffffff,stroke:#777
+    style KERNEL fill:#ffffff,stroke:#777
+    style HW fill:#ffffff,stroke:#777
+
+    style A1 fill:#f8f8f8,stroke:#000
+    style A2 fill:#f8f8f8,stroke:#000
+    style AN fill:#f8f8f8,stroke:#000
+    style SCI fill:#f8f8f8,stroke:#000
+    style K fill:#f8f8f8,stroke:#000
+    style DD fill:#f8f8f8,stroke:#000
+    style H fill:#f8f8f8,stroke:#000
+```
