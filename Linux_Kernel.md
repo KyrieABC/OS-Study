@@ -3,19 +3,6 @@
   - *Code run in Kernel mode have complete, unrestricted access to the underlying hardware*
   - **Kernel Space**: memory area reserved to kernel processes
 
-## Task vs Thread vs Process
-  - *Linux does not distinguish between process and threads internally*
-  - `task`: fundamental unit of execution and resource tracking in the Linux kernel (a standalone program, standard multi-threaded applicatoin, background kernel thread are all viewed as a task)
-  - `process`: an executing program with its own isolated Address space, file descriptor, security credentials and IPC resources
-    - In Linux, process is **a group of tasks that share the same resources**
-    - Each tasks in Linux has its own `struct task_struct` (control block) with individual pointers to resources that task use to interact with system:
-      1. `mm_struct`: Pointer points to memory space (virtual memory layout, page tables)
-      2. `fs_struct`: Pointer to filesystem information (current working directory, root directory)
-      3. `files_struct`: Pointer points to the table of open file descriptors
-      4. `signal_struct`: Pointer points to signal handlers and dispositions
-    - `fork()`: creates new task and allocate brand new copies of resource structs (`mm_struct`,...)
-    - `clone()` to create a thread: kernel creates new task, but copies memory addresses of existing structures so new task points to same resource structs
-  - `threads` (execution streams): in Linux, thread is just a task that shares its resource context with other tasks
 
 ## Typical OS architecture
 ```mermaid
